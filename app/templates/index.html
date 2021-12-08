@@ -1,13 +1,19 @@
 <!doctype html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ title }} - Microblog</title>
+    {% if title %}
+        <title>{{ title }} - microblog</title>
+    {% else %}
+        <title>welcome to microblog</title>
+    {% endif %}
 </head>
+
 <body>
-    <h1>hello, {{ user.username }}</h1>
+    <h1>Hello, {{ user.username }}</h1>
+    {% for post in posts %}
+    <div>
+        <p>{{ post.author.username }} says : </p>
+        <b>{{ post.body }}</b>
+    </div>
+    {% endfor %}
 </body>
 </html>
