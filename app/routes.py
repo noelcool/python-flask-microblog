@@ -85,9 +85,9 @@ def before_request():
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    form = EditProfileForm()
-    print(form.validate_on_submit())
-    if form.validate_on_submit():
+    form = EditProfileForm(current_user.uername)
+    if form.validate_on_submit(): # form.hidden_tag()
+        # defines an extra form field that is hidden, used by Flask-WTF to implement CSRF protection
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
