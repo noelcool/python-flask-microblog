@@ -6,6 +6,8 @@ from app.models import User, Post
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app.email import send_password_reset_email
+from flask import g
+from flask_babel import get_locale
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -81,6 +83,7 @@ def register():
 
 @app.before_request
 def before_request():
+    g.locale = str(get_locale())
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
